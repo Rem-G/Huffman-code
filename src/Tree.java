@@ -3,16 +3,16 @@ import java.util.*;
 public class Tree{
 	private Node root;
 	private LinkedHashMap alphabet;
-	private ArrayList<Node> nodes = new ArrayList<Node>();
+	private ArrayList<Node> forests = new ArrayList<Node>();
 
 	public Tree(LinkedHashMap alphabet){
 		this.alphabet = alphabet;
 	}
 
-	public Tree(Node root, LinkedHashMap alphabet, ArrayList<Node> nodes){
+	public Tree(Node root, LinkedHashMap alphabet, ArrayList<Node> forests){
 		this.root = root;
 		this.alphabet = alphabet;
-		this.nodes = nodes;
+		this.forests = forests;
 	}
 
 	public void initial_tree(){
@@ -20,50 +20,45 @@ public class Tree{
 
 		for (int key : keys){
 			Node n = new Node(key, (int)(this.alphabet.get(key)));
-			this.nodes.add(n);
+			this.forests.add(n);
 		}
-	}
-
-	public Node t_node(Node t1, Node t2){
-		int avg = (int)((t1.get_freq()+t2.get_freq())/2);
-
-		int distance = Math.abs(t1.get_freq() - avg);
-		Node avg_node = this.nodes.get(0);
-
-		for (Node node : this.nodes){
-			int current_distance = Math.abs(node.get_freq() - avg);
-
-			if (current_distance < distance){
-				distance = current_distance;
-				avg_node = node;
-			}
-		}
-		return avg_node;
 	}
 
 	public void general_tree(){
-		if (this.nodes.size() == 0){
+		if (this.forests.size() == 0){
 			this.initial_tree();
 		}
 
-		Node t1_node = this.nodes.get(0);//min
-		Node t2_node = this.nodes.get(0);//max
+		while (this.forests.size() > 1){
+			Node t1_forest = this.forests.get(0);//min
+			Node t2_forest = this.forests.get(1);//max
 
-		for (Node node : this.nodes){
-			if (node.get_freq() > t2_node.get_freq()){
-				t2_node = node;
+			for (Node forest : this.forests){
+				if (forest.get_freq() < t1_forest.get_freq()){
+					t1_forest = forest;
+				}
 			};
+			this.forests.remove(t1_forest);
 
-			if (node.get_freq() < t1_node.get_freq()){
-				t1_node = node;
-			}
+			for (Node forest : this.forests){
+				if (forest.get_freq() > t2_forest.get_freq() && t1_forest.get_freq() <= forest.get_freq()){
+					t2_forest = forest;
+				}
+			};
+			this.forests.remove(t2_forest);
+
+			int freq = t1_forest.get_freq() + t2_forest.get_freq();
+			Node t_node = new Node(freq, t1_forest, t2_forest);
+
+			t1_forest.set_parent(t_node);
+			t2_forest.set_parent(t_node);
+
+			this.forests.add(t_node);
+
+			System.out.println(t_node.get_left_child());
+
 		}
 
-		Node t_node = this.t_node(t1_node, t2_node);
-
-		System.out.println(t1_node.get_freq());
-		System.out.println(t_node.get_freq());
-		System.out.println(t2_node.get_freq());
 	}
 }
 
