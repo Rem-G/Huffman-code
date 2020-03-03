@@ -13,18 +13,18 @@ public class ReadData{
 		ArrayList<String[]> text = new ArrayList<String[]>();
 
 		try{
-				BufferedReader br = new BufferedReader(new FileReader(this.filename));
-				String line;
+			BufferedReader br = new BufferedReader(new FileReader(this.filename));
+			String line;
 
-				while ((line = br.readLine()) != null){
-					//Check if the line is not empty
-					if (line.length() > 1){
-						String[] newLine = line.split("\n");
-						text.add(newLine);
-					}
+			while ((line = br.readLine()) != null){
+				//Check if the line is not empty
+				if (line.length() > 1){
+					String[] newLine = line.split("\n");
+					text.add(newLine);
 				}
-				br.close();
 			}
+			br.close();
+		}
 
 		catch(IOException e) {
 			System.out.println(e);
