@@ -13,14 +13,13 @@ public class ReadData{
 		ArrayList<String[]> text = new ArrayList<String[]>();
 
 		try{
-
 				BufferedReader br = new BufferedReader(new FileReader(this.filename));
 				String line;
 
 				while ((line = br.readLine()) != null){
 					//Check if the line is not empty
 					if (line.length() > 1){
-						String[] newLine = line.split(" ");
+						String[] newLine = line.split("\n");
 						text.add(newLine);
 					}
 				}
@@ -32,8 +31,6 @@ public class ReadData{
 		}
 
 		return text;
-
 	}
-
 }
 

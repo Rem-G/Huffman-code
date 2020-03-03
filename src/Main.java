@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String[] args) throws FileNotFoundException{
 		Path path = Paths.get(System.getProperty("user.dir")).getParent();
 
-		ReadData data = new ReadData(path + "/data/alice.txt");
+		ReadData data = new ReadData(path + "/data/textesimple.txt");
 
 		ArrayList<String[]> data_text = data.read();
 

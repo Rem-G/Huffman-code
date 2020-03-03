@@ -29,7 +29,6 @@ public class Alphabet{
 				}
 			}
 		}
-
 		return occurences;
 	}
 
@@ -52,5 +51,4 @@ public class Alphabet{
 		}
 		return sorted_occurences;
 	}
-
 }
