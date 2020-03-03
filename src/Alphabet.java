@@ -7,8 +7,34 @@ public class Alphabet{
 		this.data = data;
 	}
 
+	public HashMap frequence(){
+		HashMap<Integer, Integer> occurences = new HashMap<Integer, Integer>();
+
+		for(String[] line : this.data){
+			for (String word : line){
+				for (int i=0; i < word.length()-1; i++){
+
+					int ascii_code = (int)word.charAt(i);
+
+					if ((occurences.keySet()).contains(ascii_code)){
+
+						int value = (int)occurences.get(ascii_code);
+						value++;
+						occurences.replace(ascii_code, value);
+					}
+
+					else{
+						occurences.put(ascii_code, 1);
+					}
+				}
+			}
+		}
+
+		return occurences;
+	}
+
 	public LinkedHashMap sorted_frequence(){
-		Map occurences = this.frequence();
+		HashMap occurences = this.frequence();
 
 		ArrayList<Integer> values = new ArrayList<Integer>(occurences.values());
 		ArrayList<Integer> keys = new ArrayList<Integer>(occurences.keySet());
@@ -25,35 +51,6 @@ public class Alphabet{
 			}
 		}
 		return sorted_occurences;
-	}
-
-	public Map frequence(){
-		HashMap<Integer, Integer> occurences = new HashMap<Integer, Integer>();
-
-		for(String[] line : this.data){
-			for (String word : line){
-				for (int i=0; i < word.length()-1; i++){
-
-					int ascii_value = (int)word.charAt(i);
-
-					if ((occurences.keySet()).contains(ascii_value)){
-
-						int value = (int)occurences.get(ascii_value);
-						value++;
-						occurences.replace(ascii_value, value);
-					}
-
-					else{
-						occurences.put(ascii_value, 1);
-					}
-
-				}
-			}
-		}
-
-   		Map treeMap_occurences = new TreeMap(occurences);
-
-		return treeMap_occurences;
 	}
 
 }

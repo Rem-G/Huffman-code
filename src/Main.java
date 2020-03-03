@@ -16,10 +16,8 @@ public class Main {
 
 		Alphabet alphabet = new Alphabet(data_text);
 
-		Map freq = alphabet.frequence();
+		LinkedHashMap frequence = alphabet.sorted_frequence();
 
-		System.out.println(alphabet.sorted_frequence());
-
-
+		System.out.println(frequence);
 	}
 }
