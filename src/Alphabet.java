@@ -8,21 +8,23 @@ public class Alphabet{
 	}
 
 	public Map frequence(){
-		HashMap occurences = new HashMap();
+		HashMap<Integer, Integer> occurences = new HashMap<Integer, Integer>();
 
 		for(String[] line : this.data){
 			for (String word : line){
 				for (int i=0; i < word.length()-1; i++){
 
-					if ((occurences.keySet()).contains(word.charAt(i))){
+					int ascii_value = (int)word.charAt(i);
 
-						int value = (int)occurences.get(word.charAt(i));
+					if ((occurences.keySet()).contains(ascii_value)){
+
+						int value = (int)occurences.get(ascii_value);
 						value++;
-						occurences.replace(word.charAt(i), value);
+						occurences.replace(ascii_value, value);
 					}
 
 					else{
-						occurences.put((int)word.charAt(i), 1);
+						occurences.put(ascii_value, 1);
 					}
 
 				}
