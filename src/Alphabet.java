@@ -7,6 +7,26 @@ public class Alphabet{
 		this.data = data;
 	}
 
+	public LinkedHashMap sorted_frequence(){
+		Map occurences = this.frequence();
+
+		ArrayList<Integer> values = new ArrayList<Integer>(occurences.values());
+		ArrayList<Integer> keys = new ArrayList<Integer>(occurences.keySet());
+
+		Collections.sort(values);
+
+		LinkedHashMap<Integer, Integer> sorted_occurences = new LinkedHashMap<Integer, Integer>();
+
+		for (int value : values){
+			for (int key : keys){
+				if ((int)(occurences.get(key)) == value){
+					sorted_occurences.put(key, value);
+				}
+			}
+		}
+		return sorted_occurences;
+	}
+
 	public Map frequence(){
 		HashMap<Integer, Integer> occurences = new HashMap<Integer, Integer>();
 
@@ -35,4 +55,5 @@ public class Alphabet{
 
 		return treeMap_occurences;
 	}
+
 }
