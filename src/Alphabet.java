@@ -1,31 +1,29 @@
 import java.util.*;
 
 public class Alphabet{
-	private ArrayList<String[]> data;
+	private String[] data;
 
-	public Alphabet(ArrayList<String[]> data){
+	public Alphabet(String[] data){
 		this.data = data;
 	}
 
 	public HashMap frequence(){
-		HashMap<Integer, Integer> occurences = new HashMap<Integer, Integer>();
+		HashMap<Character, Integer> occurences = new HashMap<Character, Integer>();
 
-		for(String[] line : this.data){
-			for (String word : line){
-				for (int i=0; i < word.length()-1; i++){
+		for (String word : this.data){
+			for (int i=0; i < word.length()-1; i++){
 
-					int ascii_code = (int)word.charAt(i);
+				char ascii_code = (char)word.charAt(i);
 
-					if ((occurences.keySet()).contains(ascii_code)){
+				if ((occurences.keySet()).contains(ascii_code)){
 
-						int value = (int)occurences.get(ascii_code);
-						value++;
-						occurences.replace(ascii_code, value);
-					}
+					int value = (int)occurences.get(ascii_code);
+					value++;
+					occurences.replace(ascii_code, value);
+				}
 
-					else{
-						occurences.put(ascii_code, 1);
-					}
+				else{
+					occurences.put(ascii_code, 1);
 				}
 			}
 		}
@@ -36,14 +34,14 @@ public class Alphabet{
 		HashMap occurences = this.frequence();
 
 		ArrayList<Integer> values = new ArrayList<Integer>(occurences.values());
-		ArrayList<Integer> keys = new ArrayList<Integer>(occurences.keySet());
+		ArrayList<Character> keys = new ArrayList<Character>(occurences.keySet());
 
 		Collections.sort(values);
 
-		LinkedHashMap<Integer, Integer> sorted_occurences = new LinkedHashMap<Integer, Integer>();
+		LinkedHashMap<Character, Integer> sorted_occurences = new LinkedHashMap<Character, Integer>();
 
 		for (int value : values){
-			for (int key : keys){
+			for (char key : keys){
 				if ((int)(occurences.get(key)) == value){
 					sorted_occurences.put(key, value);
 				}
