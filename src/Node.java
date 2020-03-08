@@ -27,6 +27,10 @@ public class Node{
 		this.parent = parent;
 	}
 
+	public char get_label(){
+		return this.label;
+	}
+
 	public Node get_parent(){
 		return this.parent;
 	}
@@ -54,12 +58,12 @@ public class Node{
 
 			if (this.left_child != null && !checked_forests.contains(this.left_child)){
 				checked_forests.add(this.left_child);
-				return this.left_child.deep_path(path + "0", charac, checked_forests);
+				return this.left_child.deep_path(path + "1", charac, checked_forests);
 			}
 
 			else if (this.right_child != null && !checked_forests.contains(this.right_child)){
 				checked_forests.add(this.right_child);
-				return this.right_child.deep_path(path + "1", charac, checked_forests);
+				return this.right_child.deep_path(path + "0", charac, checked_forests);
 			}
 
 			else if (this.parent != null){

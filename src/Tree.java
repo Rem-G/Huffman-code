@@ -19,12 +19,28 @@ public class Tree{
 		}
 	}
 
+	public ArrayList<Node> sort_forests_freq(ArrayList<Node> forests){
+		ArrayList<Node> new_forests = new ArrayList<Node>();
+
+		int i = 1;
+
+		while (forests.size() != new_forests.size()){
+			for (Node n : forests){
+				if (n.get_freq() == i){
+					new_forests.add(n);
+				}
+			}
+			i ++;		
+		}
+		return new_forests;
+	}
+
 	public Node general_tree(){
 		this.initial_tree();
 
 		while (this.forests.size() > 1){
 			Node t1_forest = this.forests.get(0);//min
-			Node t2_forest = this.forests.get(0);//max
+			Node t2_forest = this.forests.get(1);//max
 
 			for (Node forest : this.forests){
 				if (forest.get_freq() < t1_forest.get_freq()){
@@ -32,11 +48,15 @@ public class Tree{
 				}
 			};
 
+			this.forests.remove(t1_forest);
+
 			for (Node forest : this.forests){
-				if (forest.get_freq() > t2_forest.get_freq() && t1_forest.get_freq() <= forest.get_freq()){
+				if (forest.get_freq() < t2_forest.get_freq()){
 					t2_forest = forest;
 				}
 			};
+
+			this.forests.remove(t2_forest);
 
 			int freq = t1_forest.get_freq() + t2_forest.get_freq();
 			Node t_node = new Node(freq, t1_forest, t2_forest);
@@ -48,11 +68,9 @@ public class Tree{
 
 			this.forests.add(t_node);
 
-			this.forests.remove(t1_forest);
-			this.forests.remove(t2_forest);
-		}
+			this.forests = this.sort_forests_freq(this.forests);
 
-		System.out.println(this.forests.size());
+		}
 		return this.forests.get(0);
 	}
 }

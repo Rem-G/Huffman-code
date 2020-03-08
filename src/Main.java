@@ -1,18 +1,20 @@
 import java.io.*;
 import java.util.*;
 
-import java.nio.file.Path; 
-import java.nio.file.Paths; 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException{
+		String original_text = "textesimple";
+
 		Path path_file = Paths.get(System.getProperty("user.dir")).getParent();
-		ReadData data = new ReadData(path_file + "/data/textesimple.txt");
+		ReadData data = new ReadData(path_file + "/data/" + original_text + ".txt");
 		ArrayList<String[]> data_text = data.read();
 
-		String path = "";
+		String binary_path = "";
 
 		for(String[] line : data_text){
 			Alphabet a = new Alphabet(line);
@@ -27,10 +29,12 @@ public class Main {
 
 				char ascii_code = (char)word.charAt(i);
 
-				path += tree.deep_path("", ascii_code, new ArrayList<Node>());
+				binary_path += tree.deep_path("", ascii_code, new ArrayList<Node>());
 				}
 			}
-			System.out.println(path);
+			//System.out.println(binary_path);
 		}
+		WriteData wf = new WriteData();
+		wf.write_binary(original_text, binary_path);
 	}
 }
