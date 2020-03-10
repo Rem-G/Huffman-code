@@ -26,7 +26,6 @@ public class ReadData{
 		return text;
 	}
 
-
 	public ArrayList<String[]> convert_array_to_string(ArrayList<String[]> text){
 		String ch = "";
 		String bf = "";
@@ -58,6 +57,20 @@ public class ReadData{
 			}
 		}
 		return ch_array;
+	}
+
+	public String read_path(String filename){
+		ArrayList<String[]> text = this.read(filename);
+
+		String ch = "";
+
+		for (String[] line : text){
+			for (String word : line){
+				ch += word;
+			}
+		}
+
+		return ch;
 	}
 
 }

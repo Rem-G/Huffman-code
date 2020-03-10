@@ -43,6 +43,19 @@ public class Node{
 		return this.right_child;
 	}
 
+	public static Comparator<Node> sort_forests = new Comparator<Node>() {
+
+		public int compare(Node n1, Node n2) {
+
+		   int freq1 = n1.get_freq();
+		   int freq2 = n2.get_freq();
+
+		   /*For ascending order*/
+		   return freq1-freq2;
+
+		}
+	};
+
 	public String deep_path(String path, char charac, ArrayList<Node> checked_forests){
 		//System.out.println(this.label + "char");
 		//System.out.println(this.left_child);

@@ -19,22 +19,6 @@ public class Tree{
 		}
 	}
 
-	public ArrayList<Node> sort_forests_freq(ArrayList<Node> forests){
-		ArrayList<Node> new_forests = new ArrayList<Node>();
-
-		int i = 1;
-
-		while (forests.size() != new_forests.size()){
-			for (Node n : forests){
-				if (n.get_freq() == i){
-					new_forests.add(n);
-				}
-			}
-			i ++;		
-		}
-		return new_forests;
-	}
-
 	public Node general_tree(){
 		this.initial_tree();
 
@@ -53,7 +37,8 @@ public class Tree{
 			t2_forest.set_parent(t_node);
 
 			this.forests.add(t_node);
-			this.forests = this.sort_forests_freq(this.forests);
+
+			Collections.sort(this.forests, Node.sort_forests);
 		}
 		return this.forests.get(0);
 	}
