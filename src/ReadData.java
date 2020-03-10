@@ -2,7 +2,23 @@ import java.util.*;
 import java.io.*;
 
 public class ReadData{
-	public ArrayList read(String filename){
+	public ArrayList<String> read(String filename){
+		ArrayList<String> text = new ArrayList<>();
+
+		try{
+			BufferedReader br = new BufferedReader(new FileReader(filename));
+			while (br.ready()){
+					text.add(br.readLine());
+				}
+			br.close();
+		}
+		catch(IOException e) {
+			System.out.println(e);
+		}
+		return text;
+	}
+
+	public ArrayList<String> convert_array_to_string(String filename){
 		ArrayList<String[]> text = new ArrayList<String[]>();
 
 		try{
@@ -16,6 +32,7 @@ public class ReadData{
 					text.add(newLine);
 				}
 			}
+
 			br.close();
 		}
 
@@ -23,35 +40,35 @@ public class ReadData{
 			System.out.println(e);
 		}
 
-		return text;
-	}
-
-	public ArrayList<String[]> convert_array_to_string(ArrayList<String[]> text){
 		String ch = "";
 		String bf = "";
+		int af = 0;
 
-		ArrayList<String[]> ch_array = new ArrayList<String[]>();
-		String[] temp_char = new String[1];
-
+		ArrayList<String> ch_array = new ArrayList<String>();
 
 		for (String[] line : text){
 			for (String word : line){
-				for (int i=0; i < word.length(); i++){
-					if ((char)word.charAt(i) == ":".charAt(0)){
-						try{
-							bf = String.valueOf(word.charAt(i-1));
-						}
-						catch(Exception e){
+				if (word.contains(":")){
+					String[] word_split = word.split(":");
+					try{
+						bf = String.valueOf(word_split[0]);
+						af = Integer.parseInt(word_split[1]);
+
+					}
+					catch(Exception e){
+						if (String.valueOf(word.charAt(0)).equals(":")){
+							System.out.println("ok");
 							bf = String.valueOf((char)13);
+							af = Integer.parseInt(word.substring(2, word.length()));
 						}
+						else{
+							bf = String.valueOf(word.charAt(0));
+							af = Integer.parseInt(word.substring(2, word.length()));
+						}
+					}
 
-							int af = (int) (word.charAt(i+1) - '0');
-
-							for (int x = 0; x <= af-1; x++){
-								temp_char[0] = bf;
-								ch_array.add(temp_char);
-								temp_char = new String[1];
-							}
+					for (int x = 0; x <= af-1; x++){
+						ch_array.add(bf);
 					}
 				}
 			}
@@ -60,14 +77,12 @@ public class ReadData{
 	}
 
 	public String read_path(String filename){
-		ArrayList<String[]> text = this.read(filename);
+		ArrayList<String> text = this.read(filename);
 
 		String ch = "";
 
-		for (String[] line : text){
-			for (String word : line){
-				ch += word;
-			}
+		for (String word : text){
+			ch += word;
 		}
 
 		return ch;

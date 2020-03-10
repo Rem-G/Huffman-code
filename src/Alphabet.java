@@ -1,35 +1,33 @@
 import java.util.*;
 
 public class Alphabet{
-	private ArrayList<String[]> data;
+	private ArrayList<String> data;
 
-	public Alphabet(ArrayList<String[]> data){
+	public Alphabet(ArrayList<String> data){
 		this.data = data;
 	}
 
 	public Map frequence(){
 		Map<Character, Integer> occurences = new TreeMap<Character, Integer>();
 
-		for (String[] line : this.data){
-			for (String word : line){
-				for (int i=0; i < word.length(); i++){
+		for (String word : this.data){
+			for (int i=0; i < word.length(); i++){
 
-					char c = (char)word.charAt(i);
+				char c = (char)word.charAt(i);
 
-					if ((occurences.keySet()).contains(c)){
+				if ((occurences.keySet()).contains(c)){
 
-						int value = (int)occurences.get(c);
-						value++;
-						occurences.replace(c, value);
-					}
+					int value = (int)occurences.get(c);
+					value++;
+					occurences.replace(c, value);
+				}
 
-					else{
-						occurences.put(c, 1);
-					}
+				else{
+					occurences.put(c, 1);
 				}
 			}
 		}
-		occurences.put((char)13, this.data.size());
+		//occurences.put((char)13, this.data.size());
 		return occurences;
 	}
 

@@ -52,37 +52,27 @@ public class Node{
 
 		   /*For ascending order*/
 		   return freq1-freq2;
-
 		}
 	};
 
 	public String deep_path(String path, char charac, ArrayList<Node> checked_forests){
-		//System.out.println(this.label + "char");
-		//System.out.println(this.left_child);
-		//System.out.println(this.right_child);
-		//System.out.println(checked_forests);
-		//System.out.println(this.parent);
 		if (this.label == charac){
 			return path;
 		}
 
 		else{
-
 			if (this.left_child != null && !checked_forests.contains(this.left_child)){
 				checked_forests.add(this.left_child);
 				return this.left_child.deep_path(path + "0", charac, checked_forests);
 			}
-
 			else if (this.right_child != null && !checked_forests.contains(this.right_child)){
 				checked_forests.add(this.right_child);
 				return this.right_child.deep_path(path + "1", charac, checked_forests);
 			}
-
 			else if (this.parent != null){
 				String new_path = path.substring(0, path.length()-1); //We delete the last value
 				return this.parent.deep_path(new_path, charac, checked_forests);
 			}
-
 			else{
 				return "Character not found";
 			}
@@ -90,35 +80,27 @@ public class Node{
 	}
 
 	public String deep_path_decompression(String path, String search_path, ArrayList<Node> checked_forests){
-		//System.out.println(this.label + "char");
-		//System.out.println(this.left_child);
-		//System.out.println(this.right_child);
-		//System.out.println(checked_forests);
-		//System.out.println(this.parent);
+	//	System.out.println(path + " " + search_path);
+	//	System.out.println(path.equals(search_path));
 
 		if (path.equals(search_path)){
-			return String.valueOf(this.label);
+			return String.valueOf(this.get_label());
 		}
 
 		else{
-
 			if (this.left_child != null && !checked_forests.contains(this.left_child)){
 				checked_forests.add(this.left_child);
 				return this.left_child.deep_path_decompression(path + "0", search_path, checked_forests);
 			}
-
 			else if (this.right_child != null && !checked_forests.contains(this.right_child)){
 				checked_forests.add(this.right_child);
 				return this.right_child.deep_path_decompression(path + "1", search_path, checked_forests);
 			}
-
 			else if (this.parent != null){
 				String new_path = path.substring(0, path.length()-1); //We delete the last value
 				return this.parent.deep_path_decompression(new_path, search_path, checked_forests);
 			}
-
 			else{
-				System.out.println(search_path);
 				return "Character not found";
 			}
 		}
