@@ -1,10 +1,10 @@
 import java.util.*;
 
 public class Tree{
-	private LinkedHashMap alphabet;
+	private Map alphabet;
 	private ArrayList<Node> forests = new ArrayList<Node>();
 
-	public Tree(LinkedHashMap alphabet){
+	public Tree(Map alphabet){
 		this.alphabet = alphabet;
 	}
 
@@ -39,37 +39,21 @@ public class Tree{
 		this.initial_tree();
 
 		while (this.forests.size() > 1){
+			//this.forests is sorted
 			Node t1_forest = this.forests.get(0);//min
-			Node t2_forest = this.forests.get(1);//max
+			Node t2_forest = this.forests.get(1);//min2
 
-			for (Node forest : this.forests){
-				if (forest.get_freq() < t1_forest.get_freq()){
-					t1_forest = forest;
-				}
-			};
+			//System.out.println(t1_forest.get_freq() + " " + t2_forest.get_freq() + " " + (t1_forest.get_freq() + t2_forest.get_freq()));
 
 			this.forests.remove(t1_forest);
-
-			for (Node forest : this.forests){
-				if (forest.get_freq() < t2_forest.get_freq()){
-					t2_forest = forest;
-				}
-			};
-
 			this.forests.remove(t2_forest);
 
-			int freq = t1_forest.get_freq() + t2_forest.get_freq();
-			Node t_node = new Node(freq, t1_forest, t2_forest);
-
-			System.out.println(t1_forest.get_freq() + " " + t2_forest.get_freq() + " " + freq);
-
+			Node t_node = new Node(t1_forest.get_freq() + t2_forest.get_freq(), t1_forest, t2_forest);
 			t1_forest.set_parent(t_node);
 			t2_forest.set_parent(t_node);
 
 			this.forests.add(t_node);
-
 			this.forests = this.sort_forests_freq(this.forests);
-
 		}
 		return this.forests.get(0);
 	}

@@ -1,37 +1,40 @@
 import java.util.*;
 
 public class Alphabet{
-	private String[] data;
+	private ArrayList<String[]> data;
 
-	public Alphabet(String[] data){
+	public Alphabet(ArrayList<String[]> data){
 		this.data = data;
 	}
 
-	public HashMap frequence(){
-		HashMap<Character, Integer> occurences = new HashMap<Character, Integer>();
+	public Map frequence(){
+		Map<Character, Integer> occurences = new TreeMap<Character, Integer>();
 
-		for (String word : this.data){
-			for (int i=0; i < word.length()-1; i++){
+		for (String[] line : this.data){
+			for (String word : line){
+				for (int i=0; i < word.length(); i++){
 
-				char ascii_code = (char)word.charAt(i);
+					char c = (char)word.charAt(i);
 
-				if ((occurences.keySet()).contains(ascii_code)){
+					if ((occurences.keySet()).contains(c)){
 
-					int value = (int)occurences.get(ascii_code);
-					value++;
-					occurences.replace(ascii_code, value);
-				}
+						int value = (int)occurences.get(c);
+						value++;
+						occurences.replace(c, value);
+					}
 
-				else{
-					occurences.put(ascii_code, 1);
+					else{
+						occurences.put(c, 1);
+					}
 				}
 			}
 		}
+		occurences.put((char)13, this.data.size());
 		return occurences;
 	}
 
 	public LinkedHashMap sorted_frequence(){
-		HashMap occurences = this.frequence();
+		Map occurences = this.frequence();
 
 		ArrayList<Integer> values = new ArrayList<Integer>(occurences.values());
 		ArrayList<Character> keys = new ArrayList<Character>(occurences.keySet());
