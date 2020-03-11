@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -78,20 +79,27 @@ public class HuffmanManage{
 		String charac = "";
 		int i = 0;
 
-		while (binary_path.length() > 0){
-			charac += Character.toString(binary_path.charAt(i));
+		try{
+			while (binary_path.length() > 0){
 
-			if (encoded_char_values.contains(charac)){
-				int index = encoded_char_values.indexOf(charac);
-				converted_path += encoded_char_keys.get(index);
-				charac = "";
+				charac += Character.toString(binary_path.charAt(i));
+
+				if (encoded_char_values.contains(charac)){
+					int index = encoded_char_values.indexOf(charac);
+					converted_path += encoded_char_keys.get(index);
+					charac = "";
+					i = 0;
+				}
+
+				binary_path = binary_path.substring(i, binary_path.length());
+				i++;
 			}
-
-			binary_path = binary_path.substring(i, binary_path.length());
-			i++;
-
-			System.out.println(converted_path);
 		}
+		catch (Exception e){
+			System.out.println(converted_path);
+			System.out.println(binary_path);
+		}
+
 
 		/*
 		String[] new_path = path.split(" ");

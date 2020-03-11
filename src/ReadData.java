@@ -1,5 +1,9 @@
 import java.util.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 public class ReadData{
 	public ArrayList<String> read(String filename){
@@ -75,27 +79,16 @@ public class ReadData{
 	}
 
 	public String read_path(String filename){
-    	int file_len;
-   		byte data[] = new byte[16];
-   		int hex_charac;
+		Path path = Paths.get(filename);
    		String binary_path = "";
 
-    	try{
-			FileInputStream file = new FileInputStream(filename);
-			file_len = file.read(data);
-
-			while (file_len != -1){
-	  			for (int j = 0; j < file_len; j++){
-	    			hex_charac = data[j];
-	    			binary_path += Integer.toBinaryString(hex_charac);
-	    			System.out.println(Integer.toBinaryString(hex_charac));
-	  			}
-				file_len = file.read(data);
-	   	 	}
-	   	 }
-	   	 catch (IOException e){
-	   	 	;
-	   	 }
+		try{
+			byte[] data = Files.readAllBytes(path);
+			for (int hex : data){
+	    		binary_path += Integer.toBinaryString(hex);
+			}
+		}
+		catch (IOException e){;}
 
 		return binary_path;
 	}

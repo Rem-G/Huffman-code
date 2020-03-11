@@ -56,7 +56,7 @@ public class WriteData{
 
 	  			int parsedByte = Integer.parseInt(byteString, 2);
 
-	  			System.out.println(byteString);
+	  			//System.out.println(byteString);
 
 	       		fos.write(parsedByte);
       		}
