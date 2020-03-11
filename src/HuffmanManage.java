@@ -28,23 +28,23 @@ public class HuffmanManage{
 
 		ArrayList<Character> keys = new ArrayList<Character>(encoded_char.keySet());
 
-			for (String word : data_text){
-				for (int i=0; i < word.length(); i++){
+		for (String word : data_text){
+			for (int i=0; i < word.length(); i++){
 
-					char c = (char)word.charAt(i);
+				char c = (char)word.charAt(i);
 
-					if (keys.contains(c)){
-						binary_path += encoded_char.get(c);
-					}
-					else{
-						String char_path = " " + tree.deep_path("", c, new ArrayList<Node>());
-						encoded_char.put(c, char_path);
-						keys.add(c);
-						binary_path += char_path;
-					}
+				if (keys.contains(c)){
+					binary_path += encoded_char.get(c);
 				}
-				binary_path += " " + tree.deep_path("", (System.getProperty("line.separator")).charAt(0), new ArrayList<Node>());
+				else{
+					String char_path = tree.deep_path("", c, new ArrayList<Node>());
+					encoded_char.put(c, char_path);
+					keys.add(c);
+					binary_path += char_path;
+				}
 			}
+			binary_path += tree.deep_path("", (System.getProperty("line.separator")).charAt(0), new ArrayList<Node>());
+		}
 
 		WriteData wf = new WriteData();
 		wf.write_binary(this.original_text, binary_path);
@@ -63,7 +63,37 @@ public class HuffmanManage{
 		Tree t = new Tree(alphabet);
 		Node tree = t.general_tree();
 
-		String path = data.read_path(path_file + "/data/" + this.original_text + ".bin");
+		String binary_path = data.read_path(path_file + "/data/" + this.original_text + ".bin");
+
+		HashMap<Character, String> encoded_char = new HashMap<Character, String>();
+		ArrayList<Character> alphabet_keys = new ArrayList<Character>(alphabet.keySet());
+
+		for (char c : alphabet_keys){
+			encoded_char.put(c, tree.deep_path("", c, new ArrayList<Node>()));
+		}
+		ArrayList<String> encoded_char_values = new ArrayList<String>(encoded_char.values());
+		ArrayList<Character> encoded_char_keys = new ArrayList<Character>(encoded_char.keySet());
+
+		String converted_path = "";
+		String charac = "";
+		int i = 0;
+
+		while (binary_path.length() > 0){
+			charac += Character.toString(binary_path.charAt(i));
+
+			if (encoded_char_values.contains(charac)){
+				int index = encoded_char_values.indexOf(charac);
+				converted_path += encoded_char_keys.get(index);
+				charac = "";
+			}
+
+			binary_path = binary_path.substring(i, binary_path.length());
+			i++;
+
+			System.out.println(converted_path);
+		}
+
+		/*
 		String[] new_path = path.split(" ");
 
 		String decompressed_ch = "";
@@ -78,6 +108,6 @@ public class HuffmanManage{
 				decompressed_ch += c;
 			}
 		}
-		System.out.println(decompressed_ch);
+		System.out.println(decompressed_ch);*/
 	}
 }

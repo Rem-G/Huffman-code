@@ -40,7 +40,6 @@ public class ReadData{
 			System.out.println(e);
 		}
 
-		String ch = "";
 		String bf = "";
 		int af = 0;
 
@@ -76,15 +75,29 @@ public class ReadData{
 	}
 
 	public String read_path(String filename){
-		ArrayList<String> text = this.read(filename);
+    	int file_len;
+   		byte data[] = new byte[16];
+   		int hex_charac;
+   		String binary_path = "";
 
-		String ch = "";
+    	try{
+			FileInputStream file = new FileInputStream(filename);
+			file_len = file.read(data);
 
-		for (String word : text){
-			ch += word;
-		}
+			while (file_len != -1){
+	  			for (int j = 0; j < file_len; j++){
+	    			hex_charac = data[j];
+	    			binary_path += Integer.toBinaryString(hex_charac);
+	    			System.out.println(Integer.toBinaryString(hex_charac));
+	  			}
+				file_len = file.read(data);
+	   	 	}
+	   	 }
+	   	 catch (IOException e){
+	   	 	;
+	   	 }
 
-		return ch;
+		return binary_path;
 	}
 
 }
