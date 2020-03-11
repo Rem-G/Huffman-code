@@ -49,22 +49,21 @@ public class ReadData{
 		for (String[] line : text){
 			for (String word : line){
 				if (word.contains(":")){
-					String[] word_split = word.split(":");
-					try{
-						bf = String.valueOf(word_split[0]);
-						af = Integer.parseInt(word_split[1]);
+					if ( String.valueOf(word.charAt(0)).equals(":") ){
+						if (word.substring(0, 2).equals("::")){
+							bf = ":";
+							af = Integer.parseInt(word.substring(2, word.length()));
+						}
 
+						else if ( !(word.substring(0, 2).equals("::")) ){
+							bf = System.getProperty("line.separator");
+							af = Integer.parseInt(word.substring(1, word.length()));
+						}
 					}
-					catch(Exception e){
-						if (String.valueOf(word.charAt(0)).equals(":")){
-							System.out.println("ok");
-							bf = String.valueOf((char)13);
-							af = Integer.parseInt(word.substring(2, word.length()));
-						}
-						else{
-							bf = String.valueOf(word.charAt(0));
-							af = Integer.parseInt(word.substring(2, word.length()));
-						}
+
+					else {
+						bf = String.valueOf(word.charAt(0));
+						af = Integer.parseInt(word.substring(2, word.length()));
 					}
 
 					for (int x = 0; x <= af-1; x++){

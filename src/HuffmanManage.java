@@ -17,7 +17,7 @@ public class HuffmanManage{
 
 		String binary_path = "";
 
-		Alphabet a = new Alphabet(data_text);
+		Alphabet a = new Alphabet(data_text, true);
 
 		LinkedHashMap alphabet = a.sorted_frequence();
 
@@ -43,8 +43,8 @@ public class HuffmanManage{
 						binary_path += char_path;
 					}
 				}
+				binary_path += " " + tree.deep_path("", (System.getProperty("line.separator")).charAt(0), new ArrayList<Node>());
 			}
-			//binary_path += " " + tree.deep_path("", (char)13, new ArrayList<Node>());
 
 		WriteData wf = new WriteData();
 		wf.write_binary(this.original_text, binary_path);
@@ -57,7 +57,7 @@ public class HuffmanManage{
 
 		ArrayList<String> data_compressed = data.convert_array_to_string(path_file + "/data/" + this.original_text + "_alphabet.txt");
 
-		Alphabet a = new Alphabet(data_compressed);
+		Alphabet a = new Alphabet(data_compressed, false);
 		LinkedHashMap alphabet = a.sorted_frequence();
 
 		Tree t = new Tree(alphabet);
@@ -71,7 +71,7 @@ public class HuffmanManage{
 		for (String search_path : new_path){
 			String c = tree.deep_path_decompression("", search_path, new ArrayList<Node>());
 
-			if (((char)c.charAt(0)) == ((char)13)){
+			if (c == System.getProperty("line.separator")){
 				decompressed_ch += "\n";
 			}
 			else{

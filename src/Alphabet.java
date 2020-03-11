@@ -2,9 +2,11 @@ import java.util.*;
 
 public class Alphabet{
 	private ArrayList<String> data;
+	private boolean compression;
 
-	public Alphabet(ArrayList<String> data){
+	public Alphabet(ArrayList<String> data, boolean compression){
 		this.data = data;
+		this.compression = compression;
 	}
 
 	public Map frequence(){
@@ -27,7 +29,9 @@ public class Alphabet{
 				}
 			}
 		}
-		//occurences.put((char)13, this.data.size());
+		if (compression == true){
+			occurences.put((System.getProperty("line.separator")).charAt(0), this.data.size());
+		}
 		return occurences;
 	}
 
