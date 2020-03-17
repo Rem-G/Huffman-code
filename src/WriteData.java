@@ -12,7 +12,7 @@ import java.io.*;
 public class WriteData{
 	public void write_alphabet(String file, LinkedHashMap alphabet){
 		Path path_file = Paths.get(System.getProperty("user.dir")).getParent();
-		Path path = Paths.get(path_file + "/data/" + file + "_alphabet.txt");
+		Path path = Paths.get(path_file + "/Huffman-code/data/" + file + "_alphabet.txt");
 
 		String alpha = "";
 
@@ -39,20 +39,20 @@ public class WriteData{
 		String byteString = "";
 
 		try{
-			FileOutputStream fos = new FileOutputStream(path_file + "/data/" + file + ".bin");
+			FileOutputStream fos = new FileOutputStream(path_file + "/Huffman-code/data/" + file + ".bin");
         	BufferedOutputStream out = new BufferedOutputStream(fos);
 
       		while (data.length() > 1){
-	  			if (data.length() >= 7){
-	  				byteString  = data.substring(0, 7);
+	  			if (data.length() >= 8){
+	  				byteString  = data.substring(0, 8);
 	  			}
 	  			else{
-	  				while (data.length() < 7){
+	  				while (data.length() < 8){
 	  					data += "0";
 	  				}
 	  				byteString = data;
 	  			}
-	  			data = data.substring(7, data.length());
+	  			data = data.substring(8, data.length());
 
 	  			int parsedByte = Integer.parseInt(byteString, 2);
 
@@ -72,8 +72,8 @@ public class WriteData{
 	public void compression_rate(String file){
 		Path path_file = Paths.get(System.getProperty("user.dir")).getParent();
 
-		File file_txt = new File(path_file + "/data/" + file + ".txt");
-		File file_bin = new File(path_file + "/data/" + file + ".bin");
+		File file_txt = new File(path_file + "/Huffman-code/data/" + file + ".txt");
+		File file_bin = new File(path_file + "/Huffman-code/data/" + file + ".bin");
 
 		float size_txt = file_txt.length();
 		float size_bin = file_bin.length();

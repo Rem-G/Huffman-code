@@ -36,10 +36,8 @@ public class ReadData{
 					text.add(newLine);
 				}
 			}
-
 			br.close();
 		}
-
 		catch(IOException e) {
 			System.out.println(e);
 		}
@@ -59,7 +57,7 @@ public class ReadData{
 						}
 
 						else if ( !(word.substring(0, 2).equals("::")) ){
-							bf = System.getProperty("line.separator");
+							bf = System.lineSeparator();
 							af = Integer.parseInt(word.substring(1, word.length()));
 						}
 					}

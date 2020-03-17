@@ -14,7 +14,7 @@ public class HuffmanManage{
 	public void compression(){
 		Path path_file = Paths.get(System.getProperty("user.dir")).getParent();
 		ReadData data = new ReadData();
-		ArrayList<String> data_text = data.read(path_file + "/data/" + this.original_text + ".txt");
+		ArrayList<String> data_text = data.read(path_file + "/Huffman-code/data/" + this.original_text + ".txt");
 
 		String binary_path = "";
 
@@ -44,8 +44,9 @@ public class HuffmanManage{
 					binary_path += char_path;
 				}
 			}
-			binary_path += tree.deep_path("", (System.getProperty("line.separator")).charAt(0), new ArrayList<Node>());
-		}
+			binary_path += tree.deep_path("", (System.lineSeparator()).charAt(0), new ArrayList<Node>());
+		} 
+		
 
 		WriteData wf = new WriteData();
 		wf.write_binary(this.original_text, binary_path);
@@ -56,7 +57,7 @@ public class HuffmanManage{
 		Path path_file = Paths.get(System.getProperty("user.dir")).getParent();
 		ReadData data = new ReadData();
 
-		ArrayList<String> data_compressed = data.convert_array_to_string(path_file + "/data/" + this.original_text + "_alphabet.txt");
+		ArrayList<String> data_compressed = data.convert_array_to_string(path_file + "/Huffman-code/data/" + this.original_text + "_alphabet.txt");
 
 		Alphabet a = new Alphabet(data_compressed, false);
 		LinkedHashMap alphabet = a.sorted_frequence();
@@ -64,7 +65,7 @@ public class HuffmanManage{
 		Tree t = new Tree(alphabet);
 		Node tree = t.general_tree();
 
-		String binary_path = data.read_path(path_file + "/data/" + this.original_text + ".bin");
+		String binary_path = data.read_path(path_file + "/Huffman-code/data/" + this.original_text + ".bin");
 
 		HashMap<Character, String> encoded_char = new HashMap<Character, String>();
 		ArrayList<Character> alphabet_keys = new ArrayList<Character>(alphabet.keySet());
@@ -72,6 +73,7 @@ public class HuffmanManage{
 		for (char c : alphabet_keys){
 			encoded_char.put(c, tree.deep_path("", c, new ArrayList<Node>()));
 		}
+
 		ArrayList<String> encoded_char_values = new ArrayList<String>(encoded_char.values());
 		ArrayList<Character> encoded_char_keys = new ArrayList<Character>(encoded_char.keySet());
 
@@ -99,7 +101,6 @@ public class HuffmanManage{
 			System.out.println(converted_path);
 			System.out.println(binary_path);
 		}
-
 
 		/*
 		String[] new_path = path.split(" ");
