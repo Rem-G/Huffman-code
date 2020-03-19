@@ -87,7 +87,6 @@ public class ReadData{
 				while (str.length() < 8){
 					str = "0" + str;
 				}
-
 				//System.out.println(hex & 0xFF);
 				//System.out.println(str + "\n");
 
@@ -100,4 +99,3 @@ public class ReadData{
 		return binary_path;
 	}
 }
-

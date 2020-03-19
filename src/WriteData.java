@@ -37,7 +37,7 @@ public class WriteData{
 		Path path_file = Paths.get(System.getProperty("user.dir")).getParent();
 
 		String byteString = "";
-
+		
 		try{
 			FileOutputStream fos = new FileOutputStream(path_file + "/Huffman-code/data/" + file + ".bin");
         	BufferedOutputStream out = new BufferedOutputStream(fos);
@@ -49,6 +49,9 @@ public class WriteData{
 				}
 	  			else{
 	  				byteString = data.substring(0, data.length());
+	  				while (byteString.length() < 8){
+	  					byteString += "0";
+					}
 	  				data = "";
 	  			}
 

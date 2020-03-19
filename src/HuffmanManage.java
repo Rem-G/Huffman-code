@@ -50,7 +50,6 @@ public class HuffmanManage{
 			}
 			binary_path += tree.deep_path("", (System.lineSeparator()).charAt(0), new ArrayList<Node>());
 		} 
-
 		WriteData wf = new WriteData();
 		wf.write_binary(this.original_text, binary_path);
 		wf.write_alphabet(this.original_text, alphabet);
