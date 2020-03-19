@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import java.io.*;
+import java.math.BigInteger;
 
 
 public class WriteData{
@@ -30,7 +31,6 @@ public class WriteData{
 		catch (IOException e){
 			e.printStackTrace();
 		}
-
 	}
 
 	public void write_binary(String file, String data){
@@ -42,25 +42,25 @@ public class WriteData{
 			FileOutputStream fos = new FileOutputStream(path_file + "/Huffman-code/data/" + file + ".bin");
         	BufferedOutputStream out = new BufferedOutputStream(fos);
 
-      		while (data.length() > 1){
+			while (data.length() > 1){
 	  			if (data.length() >= 8){
 	  				byteString  = data.substring(0, 8);
-	  			}
+					data = data.substring(8, data.length());
+				}
 	  			else{
-	  				while (data.length() < 8){
-	  					data += "0";
-	  				}
-	  				byteString = data;
+	  				byteString = data.substring(0, data.length());
+	  				data = "";
 	  			}
-	  			data = data.substring(8, data.length());
 
-	  			int parsedByte = Integer.parseInt(byteString, 2);
+	  			int parsedByte = Byte.toUnsignedInt((byte)(Integer.parseInt(byteString, 2) & 0xFF));
 
-	  			//System.out.println(byteString);
+	  			//System.out.println(parsedByte);
+	  			//System.out.println(byteString + "\n");
 
-	       		fos.write(parsedByte);
+	       		out.write(parsedByte);
       		}
-      		out.flush();
+
+			out.flush();
        	 	fos.close();
        	 	this.compression_rate(file);
 		}

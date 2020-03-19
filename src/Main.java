@@ -6,13 +6,13 @@ public class Main {
 		HuffmanManage hf = new HuffmanManage("textesimple");
 
 		long startTime = System.nanoTime();
-
 		hf.compression();
-
 		long endTime = System.nanoTime();
+		System.out.println((endTime - startTime)/1000000000 + " seconds to compress");
 
-		System.out.println((endTime - startTime)/1000000000);
-
+		startTime = System.nanoTime();
 		hf.decompression();
+		endTime = System.nanoTime();
+		System.out.println((endTime - startTime)/1000000000 + " seconds to uncompress");
 	}
 }

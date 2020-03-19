@@ -22,7 +22,7 @@ public class ReadData{
 		return text;
 	}
 
-	public ArrayList<String> convert_array_to_string(String filename){
+	public ArrayList<String> get_alphabet(String filename){
 		ArrayList<String[]> text = new ArrayList<String[]>();
 
 		try{
@@ -61,12 +61,10 @@ public class ReadData{
 							af = Integer.parseInt(word.substring(1, word.length()));
 						}
 					}
-
 					else {
 						bf = String.valueOf(word.charAt(0));
 						af = Integer.parseInt(word.substring(2, word.length()));
 					}
-
 					for (int x = 0; x <= af-1; x++){
 						ch_array.add(bf);
 					}
@@ -82,14 +80,24 @@ public class ReadData{
 
 		try{
 			byte[] data = Files.readAllBytes(path);
-			for (int hex : data){
-	    		binary_path += Integer.toBinaryString(hex);
+
+			for (byte hex : data){
+				String str = Integer.toBinaryString(hex & 0xFF);
+
+				while (str.length() < 8){
+					str = "0" + str;
+				}
+
+				//System.out.println(hex & 0xFF);
+				//System.out.println(str + "\n");
+
+	    		binary_path += str;
 			}
 		}
-		catch (IOException e){;}
-
+		catch (IOException e){
+			System.out.println(e);
+		}
 		return binary_path;
 	}
-
 }
 
