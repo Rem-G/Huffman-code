@@ -11,16 +11,16 @@ import java.math.BigInteger;
 
 
 public class WriteData{
-	public void write_alphabet(String file, LinkedHashMap alphabet){
+	public void write_alphabet(String file, LinkedHashMap alphabet, int nb_charac){
 		Path path_file = Paths.get(System.getProperty("user.dir")).getParent();
-		Path path = Paths.get(path_file + "/Huffman-code/data/" + file + "_alphabet.txt");
+		Path path = Paths.get(path_file + "/Huffman-code/data/" + file + "_freq.txt");
 
-		String alpha = "";
+		String alpha = nb_charac + "\n";
 
 		ArrayList<Character> keys = new ArrayList<Character>(alphabet.keySet());
 
 		for (char key : keys){
-			alpha += key + ":" + alphabet.get(key) + "\n";
+			alpha += key + " " + alphabet.get(key) + "\n";
 		}
 
 		byte[] bytes = alpha.getBytes(StandardCharsets.UTF_8);
@@ -37,9 +37,9 @@ public class WriteData{
 		Path path_file = Paths.get(System.getProperty("user.dir")).getParent();
 
 		String byteString = "";
-		
+
 		try{
-			FileOutputStream fos = new FileOutputStream(path_file + "/Huffman-code/data/" + file + ".bin");
+			FileOutputStream fos = new FileOutputStream(path_file + "/Huffman-code/data/" + file + "_comp.bin");
         	BufferedOutputStream out = new BufferedOutputStream(fos);
 
 			while (data.length() > 1){
@@ -65,7 +65,6 @@ public class WriteData{
 
 			out.flush();
        	 	fos.close();
-       	 	this.compression_rate(file);
 		}
 		catch (IOException e){
 			System.out.println(e);
@@ -76,7 +75,7 @@ public class WriteData{
 		Path path_file = Paths.get(System.getProperty("user.dir")).getParent();
 
 		File file_txt = new File(path_file + "/Huffman-code/data/" + file + ".txt");
-		File file_bin = new File(path_file + "/Huffman-code/data/" + file + ".bin");
+		File file_bin = new File(path_file + "/Huffman-code/data/" + file + "_comp.bin");
 
 		float size_txt = file_txt.length();
 		float size_bin = file_bin.length();

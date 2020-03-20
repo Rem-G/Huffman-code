@@ -11,8 +11,6 @@ public class Tree{
 	public void initial_tree(){
 		ArrayList<Character> keys = new ArrayList<Character>(this.alphabet.keySet());
 
-		System.out.println(this.alphabet);
-
 		for (char key : keys){
 			Node n = new Node(key, (int)(this.alphabet.get(key)));
 			this.forests.add(n);

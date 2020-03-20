@@ -45,26 +45,27 @@ public class ReadData{
 		String bf = "";
 		int af = 0;
 
-		ArrayList<String> ch_array = new ArrayList<String>();
+		ArrayList<String> ch_array = new ArrayList<>();
 
 		for (String[] line : text){
 			for (String word : line){
-				if (word.contains(":")){
-					if ( String.valueOf(word.charAt(0)).equals(":") ){
-						if (word.substring(0, 2).equals("::")){
-							bf = ":";
-							af = Integer.parseInt(word.substring(2, word.length()));
-						}
-
-						else if ( !(word.substring(0, 2).equals("::")) ){
-							bf = System.lineSeparator();
-							af = Integer.parseInt(word.substring(1, word.length()));
-						}
-					}
-					else {
-						bf = String.valueOf(word.charAt(0));
+				if (word.contains(" ")){
+					if (word.substring(0, 2).equals("  ")){
+						bf = " ";
 						af = Integer.parseInt(word.substring(2, word.length()));
 					}
+
+					else if (word.substring(0,1).equals(" ")){
+						bf = System.lineSeparator();
+						af = Integer.parseInt(word.substring(1, word.length()));
+					}
+
+					else{
+						String word_split[] = word.split(" ");
+						bf = word_split[0];
+						af = Integer.parseInt(word_split[1]);
+					}
+
 					for (int x = 0; x <= af-1; x++){
 						ch_array.add(bf);
 					}
