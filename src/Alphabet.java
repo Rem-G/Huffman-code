@@ -13,17 +13,13 @@ public class Alphabet{
 		Map<Character, Integer> occurences = new TreeMap<Character, Integer>();
 
 		for (String word : this.data){
-			for (int i=0; i < word.length(); i++){
-
-				char c = (char)word.charAt(i);
-
+			char[] list_char = word.toCharArray();
+			for (char c : list_char){
 				if ((occurences.keySet()).contains(c)){
-
 					int value = (int)occurences.get(c);
 					value++;
 					occurences.replace(c, value);
 				}
-
 				else{
 					occurences.put(c, 1);
 				}

@@ -18,14 +18,14 @@ public class Tree{
 	}
 
 	public Node general_tree(){
-		this.initial_tree();
+		this.initial_tree();//Build the initial tree based on leafs
 
 		while (this.forests.size() > 1){
 			//this.forests is sorted
-			Node t1_forest = this.forests.get(0);//min
+			Node t1_forest = this.forests.get(0);//min1
 			Node t2_forest = this.forests.get(1);//min2
 
-			//System.out.println(t1_forest.get_freq() + " " + t2_forest.get_freq() + " " + (t1_forest.get_freq() + t2_forest.get_freq()));
+			//System.out.println("t1 char : " + t1_forest.get_label() + " t1_freq : " + t1_forest.get_freq() + "      t2 char : " + t2_forest.get_label() + " t2_freq: " + t2_forest.get_freq() + "      (t1_freq+t2_freq) : " + (t1_forest.get_freq() + t2_forest.get_freq()));
 
 			this.forests.remove(t1_forest);
 			this.forests.remove(t2_forest);
@@ -36,7 +36,7 @@ public class Tree{
 
 			this.forests.add(t_node);
 
-			Collections.sort(this.forests, Node.sort_forests);
+			Collections.sort(this.forests, Node.sort_forests);//Sort this.forests
 		}
 		return this.forests.get(0);
 	}

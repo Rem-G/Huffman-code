@@ -15,15 +15,13 @@ public class WriteData{
 		Path path_file = Paths.get(System.getProperty("user.dir")).getParent();
 		Path path = Paths.get(path_file + "/Huffman-code/data/" + file + "_freq.txt");
 
-		String alpha = nb_charac + "\n";
-
+		StringBuilder alpha = new StringBuilder(nb_charac + "\n");
 		ArrayList<Character> keys = new ArrayList<Character>(alphabet.keySet());
 
 		for (char key : keys){
-			alpha += key + " " + alphabet.get(key) + "\n";
+			alpha.append(key).append(" ").append(alphabet.get(key)).append("\n");
 		}
-
-		byte[] bytes = alpha.getBytes(StandardCharsets.UTF_8);
+		byte[] bytes = alpha.toString().getBytes(StandardCharsets.UTF_8);
 
 		try {
 			Files.write(path, bytes);
@@ -33,40 +31,38 @@ public class WriteData{
 		}
 	}
 
-	public void write_binary(String file, String data){
+	public void write_binary(String file, String data) {
 		Path path_file = Paths.get(System.getProperty("user.dir")).getParent();
-
-		String byteString = "";
+		StringBuilder byteString = new StringBuilder();
+		char[] list_bits = data.toCharArray();
 
 		try{
 			FileOutputStream fos = new FileOutputStream(path_file + "/Huffman-code/data/" + file + "_comp.bin");
         	BufferedOutputStream out = new BufferedOutputStream(fos);
 
-			while (data.length() > 1){
-	  			if (data.length() >= 8){
-	  				byteString  = data.substring(0, 8);
-					data = data.substring(8, data.length());
+        	for (char bit : list_bits){
+				byteString.append(bit);
+				if (byteString.length() == 8){
+					int parsedByte = Byte.toUnsignedInt((byte)(Integer.parseInt(byteString.toString(), 2) & 0xFF));
+					//System.out.println(parsedByte);
+					//System.out.println(byteString + "\n");
+					out.write(parsedByte);
+					byteString = new StringBuilder();
 				}
-	  			else{
-	  				byteString = data.substring(0, data.length());
-	  				while (byteString.length() < 8){
-	  					byteString += "0";
-					}
-	  				data = "";
-	  			}
+			}
 
-	  			int parsedByte = Byte.toUnsignedInt((byte)(Integer.parseInt(byteString, 2) & 0xFF));
-
-	  			//System.out.println(parsedByte);
-	  			//System.out.println(byteString + "\n");
-
-	       		out.write(parsedByte);
-      		}
+        	if (byteString.length() > 0){//Last bits wrere not sufficient to build a byte
+        		while (byteString.length() < 8){
+					byteString.append("0");
+        		}
+				int parsedByte = Byte.toUnsignedInt((byte)(Integer.parseInt(byteString.toString(), 2) & 0xFF));
+				out.write(parsedByte);
+			}
 
 			out.flush();
        	 	fos.close();
 		}
-		catch (IOException e){
+		catch (Exception e){
 			System.out.println(e);
 		}
 	}

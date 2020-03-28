@@ -13,10 +13,10 @@ public class ReadData{
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			while (br.ready()){
 					text.add(br.readLine());
-				}
+			}
 			br.close();
 		}
-		catch(IOException e) {
+		catch(Exception e) {
 			System.out.println(e);
 		}
 		return text;
@@ -38,7 +38,7 @@ public class ReadData{
 			}
 			br.close();
 		}
-		catch(IOException e) {
+		catch(Exception e) {
 			System.out.println(e);
 		}
 
@@ -54,18 +54,15 @@ public class ReadData{
 						bf = " ";
 						af = Integer.parseInt(word.substring(2, word.length()));
 					}
-
 					else if (word.substring(0,1).equals(" ")){
 						bf = System.lineSeparator();
 						af = Integer.parseInt(word.substring(1, word.length()));
 					}
-
 					else{
 						String word_split[] = word.split(" ");
 						bf = word_split[0];
 						af = Integer.parseInt(word_split[1]);
 					}
-
 					for (int x = 0; x <= af-1; x++){
 						ch_array.add(bf);
 					}
@@ -77,7 +74,7 @@ public class ReadData{
 
 	public String read_path(String filename){
 		Path path = Paths.get(filename);
-   		String binary_path = "";
+   		StringBuilder binary_path = new StringBuilder();
 
 		try{
 			byte[] data = Files.readAllBytes(path);
@@ -90,13 +87,12 @@ public class ReadData{
 				}
 				//System.out.println(hex & 0xFF);
 				//System.out.println(str + "\n");
-
-	    		binary_path += str;
+	    		binary_path.append(str);
 			}
 		}
 		catch (IOException e){
 			System.out.println(e);
 		}
-		return binary_path;
+		return binary_path.toString();
 	}
 }

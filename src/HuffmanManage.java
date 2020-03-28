@@ -35,25 +35,23 @@ public class HuffmanManage{
 
 		//*******COMPRESS DATA*******
 		int nb_charac = 0;
-		String binary_path = "";
+		StringBuilder binary_path = new StringBuilder();
 
 		for (String word : data_text){
-			for (int i=0; i < word.length(); i++){
-				char c = (char)word.charAt(i);
-				binary_path += encoded_char.get(c);
-
+			char[] list_char = word.toCharArray();
+			for (char c : list_char){
+				binary_path.append(encoded_char.get(c));
 				nb_charac++;
 			}
-			binary_path += tree.deep_path("", (System.lineSeparator()).charAt(0), new ArrayList<Node>());
+			binary_path.append(tree.deep_path("", (System.lineSeparator()).charAt(0), new ArrayList<Node>()));
 			nb_charac++;
 		}
-
 		//*******WRITE COMPRESSED DATA*******
 		WriteData wf = new WriteData();
-		wf.write_binary(this.original_text, binary_path);
+		wf.write_binary(this.original_text, binary_path.toString());
 		wf.write_alphabet(this.original_text, alphabet, nb_charac);
 		wf.compression_rate(this.original_text);
-		System.out.println("Avegare number of bits per character : " + (float)binary_path.length()/nb_charac);
+		System.out.println("Average number of bits per character : " + (float)binary_path.length()/nb_charac);
 	}
 
 	public void decompression(){
@@ -84,21 +82,20 @@ public class HuffmanManage{
 		ArrayList<String> encoded_char_values = new ArrayList<String>(encoded_char.values());
 		ArrayList<Character> encoded_char_keys = new ArrayList<Character>(encoded_char.keySet());
 
-		String converted_path = "";
+		StringBuilder converted_path = new StringBuilder();
 		String charac = "";
 
 		//*******DECODE COMPRESSED DATA*******
-		while (binary_path.length() > 0){
-			charac += Character.toString(binary_path.charAt(0));
+		char[] list_bit = binary_path.toCharArray();
 
+		for(char bit : list_bit){
+			charac += bit;
 			if (encoded_char_values.contains(charac)){
 				int index = encoded_char_values.indexOf(charac);
-				converted_path += encoded_char_keys.get(index);
+				converted_path.append(encoded_char_keys.get(index));
 				charac = "";
 			}
-			binary_path = binary_path.substring(1, binary_path.length());
 		}
-
 		System.out.println(converted_path);
 	}
 }

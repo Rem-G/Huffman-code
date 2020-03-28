@@ -56,6 +56,7 @@ public class Node{
 	};
 
 	public String deep_path(String path, char charac, ArrayList<Node> checked_forests){
+		//System.out.println("Searched char : " + charac + "   Binary path : " + path);
 		if (this.label == charac){
 			return path;
 		}

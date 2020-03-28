@@ -9,12 +9,13 @@ public class Main {
 		System.out.println("*******COMPRESSION*******");
 		hf.compression();
 		long endTime = System.nanoTime();
-		System.out.println((endTime - startTime)/1000000000 + " seconds to compress");
+		System.out.println((endTime - startTime)/1000000 + " ms to compress");
+
 
 		startTime = System.nanoTime();
 		System.out.println("\n*******DECOMPRESSION*******");
 		hf.decompression();
 		endTime = System.nanoTime();
-		System.out.println((endTime - startTime)/1000000000 + " seconds to uncompress");
+		System.out.println((endTime - startTime)/1000000 + " ms to uncompress");
 	}
 }
