@@ -9,6 +9,7 @@ public class Tree{
 	}
 
 	public void initial_tree(){
+		//Create leafs from the alphabet keys
 		ArrayList<Character> keys = new ArrayList<Character>(this.alphabet.keySet());
 
 		for (char key : keys){
@@ -20,7 +21,7 @@ public class Tree{
 	public Node general_tree(){
 		this.initial_tree();//Build the initial tree based on leafs
 
-		while (this.forests.size() > 1){
+		while (this.forests.size() > 1){//When this.forests contains only 1 node, it's the root
 			//this.forests is sorted
 			Node t1_forest = this.forests.get(0);//min1
 			Node t2_forest = this.forests.get(1);//min2
@@ -38,7 +39,7 @@ public class Tree{
 
 			Collections.sort(this.forests, Node.sort_forests);//Sort this.forests
 		}
-		return this.forests.get(0);
+		return this.forests.get(0);//return the root
 	}
 }
 

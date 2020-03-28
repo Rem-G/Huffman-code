@@ -1,14 +1,9 @@
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-
 import java.io.*;
-import java.math.BigInteger;
-
 
 public class WriteData{
 	public void write_alphabet(String file, LinkedHashMap alphabet, int nb_charac){
@@ -43,7 +38,7 @@ public class WriteData{
         	for (char bit : list_bits){
 				byteString.append(bit);
 				if (byteString.length() == 8){
-					int parsedByte = Byte.toUnsignedInt((byte)(Integer.parseInt(byteString.toString(), 2) & 0xFF));
+					int parsedByte = Byte.toUnsignedInt((byte)(Integer.parseInt(byteString.toString(), 2) & 0xFF));//Binary conversion from byteString to byte
 					//System.out.println(parsedByte);
 					//System.out.println(byteString + "\n");
 					out.write(parsedByte);

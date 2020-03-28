@@ -1,6 +1,4 @@
 import java.util.*;
-import java.io.*;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -9,6 +7,7 @@ public class HuffmanManage{
 
 	public HuffmanManage(String original_text){
 		this.original_text = original_text;
+		System.out.println("\nCurrent file : " + original_text + "\n");
 	}
 
 	public void compression(){
@@ -22,15 +21,15 @@ public class HuffmanManage{
 		LinkedHashMap alphabet = a.sorted_frequence();
 
 		//*******BUILD THE HUFFMAN TREE*******
-		Tree t = new Tree(alphabet);
-		Node tree = t.general_tree();
+		Tree tree = new Tree(alphabet);
+		Node root = tree.general_tree();
 
 		//*******GET COMPRESSED VALUE OF CHARACTERS*******
 		HashMap<Character, String> encoded_char = new HashMap<Character, String>();
 		ArrayList<Character> alphabet_keys = new ArrayList<Character>(alphabet.keySet());
 
 		for (char c : alphabet_keys){
-			encoded_char.put(c, tree.deep_path("", c, new ArrayList<Node>()));
+			encoded_char.put(c, root.deep_path("", c, new ArrayList<Node>()));
 		}
 
 		//*******COMPRESS DATA*******
@@ -43,7 +42,7 @@ public class HuffmanManage{
 				binary_path.append(encoded_char.get(c));
 				nb_charac++;
 			}
-			binary_path.append(tree.deep_path("", (System.lineSeparator()).charAt(0), new ArrayList<Node>()));
+			binary_path.append(root.deep_path("", (System.lineSeparator()).charAt(0), new ArrayList<Node>()));
 			nb_charac++;
 		}
 		//*******WRITE COMPRESSED DATA*******
@@ -65,8 +64,8 @@ public class HuffmanManage{
 		LinkedHashMap alphabet = a.sorted_frequence();
 
 		//*******BUILD THE HUFFMAN TREE*******
-		Tree t = new Tree(alphabet);
-		Node tree = t.general_tree();
+		Tree tree = new Tree(alphabet);
+		Node root = tree.general_tree();
 
 		//*******GET THE COMPRESSED DATA*******
 		String binary_path = data.read_path(path_file + "/Huffman-code/data/" + this.original_text + "_comp.bin");
@@ -76,13 +75,13 @@ public class HuffmanManage{
 		ArrayList<Character> alphabet_keys = new ArrayList<Character>(alphabet.keySet());
 
 		for (char c : alphabet_keys){
-			encoded_char.put(c, tree.deep_path("", c, new ArrayList<Node>()));
+			encoded_char.put(c, root.deep_path("", c, new ArrayList<Node>()));
 		}
 
 		ArrayList<String> encoded_char_values = new ArrayList<String>(encoded_char.values());
 		ArrayList<Character> encoded_char_keys = new ArrayList<Character>(encoded_char.keySet());
 
-		StringBuilder converted_path = new StringBuilder();
+		StringBuilder decompressed_path = new StringBuilder();
 		String charac = "";
 
 		//*******DECODE COMPRESSED DATA*******
@@ -92,10 +91,10 @@ public class HuffmanManage{
 			charac += bit;
 			if (encoded_char_values.contains(charac)){
 				int index = encoded_char_values.indexOf(charac);
-				converted_path.append(encoded_char_keys.get(index));
+				decompressed_path.append(encoded_char_keys.get(index));
 				charac = "";
 			}
 		}
-		System.out.println(converted_path);
+		System.out.println(decompressed_path);
 	}
 }

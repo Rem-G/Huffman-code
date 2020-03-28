@@ -25,7 +25,8 @@ public class Alphabet{
 				}
 			}
 		}
-		if (compression == true){
+		if (compression){
+			//In the case of decompression, the line separator is already in the alphabet _freq.txt
 			occurences.put((System.getProperty("line.separator")).charAt(0), this.data.size());
 		}
 		return occurences;
