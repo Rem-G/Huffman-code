@@ -50,11 +50,11 @@ public class ReadData{
 		for (String[] line : text){
 			for (String word : line){
 				if (word.contains(" ")){
-					if (word.substring(0, 2).equals("  ")){
+					if (word.substring(0, 2).equals("  ")){//" " character
 						bf = " ";
 						af = Integer.parseInt(word.substring(2, word.length()));
 					}
-					else if (word.substring(0,1).equals(" ")){
+					else if (word.substring(0,1).equals(" ")){//\n character
 						bf = System.lineSeparator();
 						af = Integer.parseInt(word.substring(1, word.length()));
 					}
@@ -82,7 +82,7 @@ public class ReadData{
 			for (byte hex : data){
 				String str = Integer.toBinaryString(hex & 0xFF);
 
-				while (str.length() < 8){
+				while (str.length() < 8){//000011 is written as 11
 					str = "0" + str;
 				}
 				//System.out.println(hex & 0xFF);
